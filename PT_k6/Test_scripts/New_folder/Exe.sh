@@ -1,0 +1,1 @@
+k6 run --address "localhost:6561" GET_SESSION_API.js
