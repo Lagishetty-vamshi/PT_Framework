@@ -35,5 +35,6 @@ public class Create_scripts {
 		recordset.close();
 		connection.close();
 
+		System.out.println("<----------  creation of script is complete ---------->");
 	}
 }

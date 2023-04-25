@@ -14,21 +14,22 @@ public class Runner {
 
 //	public static final String Iterations = null;
 
+	public static String osnname = System.getProperty("os.name");
+	public static Fillo fillo = new Fillo();
+	public static String filePath = "Performance_testing_sheet.xlsx";
+	public static SimpleDateFormat Time1 = new SimpleDateFormat("HH-MM-SS");
+	public static String Date;
+	public static String Time;
+
 	static {
-		System.out.println("Script  started");
+		System.out.println("<------------ K6_Load_Testing_Tool ------------>");
+		Date date = new Date();
+		SimpleDateFormat DateFor = new SimpleDateFormat("dd-MM-yyyy");
+		Date = DateFor.format(date);
+		Time = Time1.format(date);
+
+		Create_File.createFolder();
 	}
-
-	static String osnname=System.getProperty("os.name");
-	static Fillo fillo = new Fillo();
-	static String filePath = "Performance_testing_sheet.xlsx";
-	static Date date = new Date();
-	static SimpleDateFormat DateFor = new SimpleDateFormat("dd-MM-yyyy");
-	static String Date = DateFor.format(date);
-	static SimpleDateFormat Time1 = new SimpleDateFormat("HH-MM-SS");
-	static String Time = Time1.format(date);
-
-	// static DateFor = new SimpleDateFormat("HH:mm");
-//	static String  Time= DateFor.format(date);
 
 	public static ArrayList<String> API_name = new ArrayList<String>();
 
@@ -37,12 +38,10 @@ public class Runner {
 	public static ArrayList<String> Payload1 = new ArrayList<String>();
 	public static ArrayList<String> headers1 = new ArrayList<String>();
 	public static ArrayList<String> API_Method1 = new ArrayList<String>();
-	
 	public static ArrayList<String> Avg_time = new ArrayList<String>();
 	public static ArrayList<String> Max_time = new ArrayList<String>();
 	public static ArrayList<String> ninety_perecent_time = new ArrayList<String>();
 	public static ArrayList<String> Iteration = new ArrayList<String>();
-	
 
 	static void read_API_name() throws FilloException {
 
@@ -64,24 +63,16 @@ public class Runner {
 			API_name.add(API_name1);
 			Payload1.add(Test_data);
 
-//			int i = 0;
-//		  Fillo fillo12= new Fillo();
-//		 Connection connection1 = fillo12.getConnection("API_Test_Report.xlsx");
-//String query2 = "INSERT INTO Report (API_Name,API_Method) VALUES("+"'"+API_name.get(i)+"'"+","+"'"+ API_Method1.get(i)+"'"+")";
-// connection1.executeUpdate(query2);
-//			i++;
-
 		}
 		recordset.close();
 		connection.close();
-		}
+	}
 
 	public static void main(String[] args) throws IOException, InterruptedException, FilloException {
 
 		Create_File.copy_reource_File();
 		read_API_name();
 		controller.control();
-		
 
 	}
 

@@ -18,14 +18,8 @@ import io.github.bonigarcia.wdm.WebDriverManager;
 
 public class Report {
 
-//	static Date date = new Date();
-//	static SimpleDateFormat DateFor = new SimpleDateFormat("dd-MM-yyyy");
-//	static String  Date= DateFor.format(date);
-//	DateFor = new SimpleDateFormat("HH:mm");
-//	String  Time= DateFor.format(date);
-
-	static void Read_result_from_web() throws InterruptedException, FilloException {
-
+	public static void Read_result_from_web() throws InterruptedException, FilloException {
+		
 //		
 //		File Test_report = new File("API_Test_Report.xlsx");
 
@@ -39,13 +33,14 @@ public class Report {
 		WebDriver driver = null;
 
 		options.addArguments("--headless");
-//		try {
+		try {
 		WebDriverManager.chromedriver().setup();
 		driver = new ChromeDriver(options);
 		driver.manage().window().maximize();
 		driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
 
 		Fillo fillo2 = new Fillo();
+	
 		Connection connection1 = fillo2.getConnection(controller.path + "/Test_report/" + Create_File.filenaem);
 
 		String iteration = "NA";
@@ -55,7 +50,19 @@ public class Report {
 
 		System.out.println(controller.path);
 		for (int i = 0; i < Runner.API_name.size(); i++) {
-			String url = "" + controller.path + "/Test_scripts/" + Runner.API_name.get(i) + ".html";
+			
+			String url = null;
+			if(Runner.osnname.contains("Mac"))
+			{
+			url = "file:///" + controller.path + "/Test_scripts/";
+			}
+			if(Runner.osnname.contains("Windows"))
+			{
+				url = "" + controller.path + "/Test_scripts/";
+					
+			}
+			
+			url = url + Runner.API_name.get(i) + ".html";
 
 			driver.get(url);
 
@@ -83,16 +90,14 @@ public class Report {
 			String report_API_method = Runner.API_Method1.get(i);
 			String report_testdata = Runner.Payload1.get(i);
 
-			Runner.Avg_time.add(Average_time_duration);
-			Runner.ninety_perecent_time.add(nine);
-			Runner.Max_time.add(Max_Throughput);
+			Runner.Avg_time.add(Average_time_duration + " ms");
+			Runner.ninety_perecent_time.add(nine + " ms");
+			Runner.Max_time.add(Max_Throughput + " ms");
 			Runner.Iteration.add(iteration);
-
+			
+	
 			System.out.println(Runner.API_name.get(i));
 			Thread.sleep(4000);
-
-//		String query1 = "INSERT INTO Report"
-//				+ "(API_Name,API_Method,Test_data,Iterations,Avg_Response_Time,Max_Throughput) VALUES("+report_API_Name+","+ report_API_method+","+report_url+","+iteration+ ","+Average_time_duration+","+Max_Throughput+")";
 
 			// <----------Copy report file with resource folder------------->
 
@@ -105,18 +110,20 @@ public class Report {
 		}
 		connection1.close();
 		Thread.sleep(5000);
-//	}
-//		catch (Exception e)
-//		{
-//			e.printStackTrace();
-//			System.out.println(e);
 
 		driver.quit();
-//		}
-		System.out.println("<---------- Html report read is complete ---------->");
+	}
+		catch(Exception e)
+		{
+			driver.quit();
+			System.out.println("Error : "+e.getMessage());
+		}
+	
 		
+		System.out.println("<---------- Html report read is complete ---------->");
+
 		Thread.sleep(3000);
-		Mail_send.mail();
+		
 
 	}
 }

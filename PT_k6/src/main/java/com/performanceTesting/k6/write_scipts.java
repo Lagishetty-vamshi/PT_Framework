@@ -33,7 +33,7 @@ public class write_scipts {
 						+ "  const res = http.put(url, JSON.stringify(data), { headers: headers });\r\n" + "\r\n" + "}";
 
 				function_desired_API = PUT_API;
-//=============================================================================================================================
+//==========================================================================================================================================================================================================================================================
 			default:
 				System.out.println("Null API method");
 			}
@@ -52,12 +52,12 @@ public class write_scipts {
 			FileWriter myWriter = new FileWriter("Test_scripts/" + API_name + ".JS");
 			myWriter.write(Base_API_script.toString());
 			myWriter.close();
-			System.out.println("Successfully wrote "+ API_name + "file.");
-		} 
-		catch (IOException e) {
+
+			System.out.println(API_name + " .js ");
+		} catch (IOException e) {
 			System.out.println("An error occurred.");
 			e.printStackTrace();
 		}
-		System.out.println("<----------  creation of script is complete ---------->");
+		
 	}
 }

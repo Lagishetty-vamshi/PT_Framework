@@ -15,10 +15,34 @@ import com.codoid.products.exception.FilloException;
 
 public class Create_File {
 	
-	static String filenaem="API_Test_Report_"+Runner.Date+"_"+Runner.Time+".xlsx";
+	public static String filenaem="API_Test_Report_"+Runner.Date+"_"+Runner.Time+".xlsx";
 	
 //	static Paths=""+controller.path+"\"+Date+\"\\\\\"+Time+\"\\\\\"+API_Name+\"\"+Date+"";
- static void createFile(String API_name) throws IOException, FilloException, InterruptedException {
+ 
+	/*
+	 * Create folders TEst script and test report
+	 */
+	public static void createFolder()
+	{
+		 File f1 = new File("./Test_report");
+		 File f2 = new File("./Test_scripts");
+		try {
+			if(!f1.exists() || !f2 .exists())
+			{  
+		 f1.mkdir();
+		 f2.mkdir();
+			}
+			
+		}
+		catch(Exception e)
+		{
+			e.printStackTrace();
+			System.out.println(e);
+		}
+		
+	}
+	
+	static void createFile(String API_name) throws IOException, FilloException, InterruptedException {
 		/* Create scripts files with API Names */
 		@SuppressWarnings("unused")
 
@@ -29,6 +53,9 @@ public class Create_File {
 
 	}
 	
+ /*
+  * screen shoot method
+  */
 	static void screenshot(WebDriver driver,String API_Name)
 	{	
 		
@@ -49,6 +76,9 @@ public class Create_File {
 		
 
 	}
+	/*
+	 * Copy Excel file to resource to test sheet
+	 */
 	
 	static void copy_reource_File() {
 	    
